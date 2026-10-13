@@ -227,10 +227,14 @@ local function smart_run_code(force_single)
   run_in_terminal(cmd, dir)
 end
 
--- Run Keybindings (F5, F6, <Space>r)
+-- Run Keybindings (Ctrl+R / F5 / <Space>r)
+map({ "n", "i", "v" }, "<C-r>", function()
+  smart_run_code(false)
+end, { desc = "Run Code (Smart Multi-file OOP - Ctrl+R)" })
+
 map({ "n", "i", "v" }, "<F5>", function()
   smart_run_code(false)
-end, { desc = "Run Code (Smart Multi-file OOP)" })
+end, { desc = "Run Code (Smart Multi-file OOP - F5)" })
 
 map("n", "<leader>r", function()
   smart_run_code(false)
@@ -238,11 +242,14 @@ end, { desc = "Run Code (Smart Multi-file OOP)" })
 
 map({ "n", "i", "v" }, "<F6>", function()
   smart_run_code(true)
-end, { desc = "Run Current Single File Only" })
+end, { desc = "Run Current Single File Only (F6)" })
 
 map("n", "<leader>R", function()
   smart_run_code(true)
 end, { desc = "Run Current Single File Only" })
+
+-- 'U' for Redo (since Ctrl+R is now assigned to Run Code)
+map("n", "U", vim.cmd.redo, { desc = "Redo (U)" })
 
 -- ============================================================================
 -- 2. HYBRID VS CODE SHORTCUTS
