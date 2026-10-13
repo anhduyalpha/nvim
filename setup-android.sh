@@ -24,19 +24,35 @@ if [ ! -d "/data/data/com.termux" ]; then
 fi
 
 echo -e "\n${YELLOW}[1/6] Đang cập nhật gói Termux và tải các công cụ biên dịch...${NC}"
-pkg update -y
+pkg update -y || true
+
+echo -e "\n${CYAN}>> Cài đặt các công cụ phát triển cốt lõi (Neovim, Git, Clang/C++, Python, Ripgrep, Fd)...${NC}"
 pkg install -y \
     neovim \
     git \
     clang \
-    openjdk-17 \
     python \
-    nodejs-lts \
     ripgrep \
     fd \
     curl \
-    termux-api \
     termux-tools
+
+echo -e "\n${CYAN}>> Cài đặt Node.js...${NC}"
+pkg install -y nodejs-lts || pkg install -y nodejs || true
+
+echo -e "\n${CYAN}>> Cài đặt Java OpenJDK (tự động thử openjdk-21 / openjdk-17 / openjdk-25)...${NC}"
+if pkg install -y openjdk-21; then
+    echo -e "${GREEN}✓ Đã cài đặt Java OpenJDK 21 thành công!${NC}"
+elif pkg install -y openjdk-17; then
+    echo -e "${GREEN}✓ Đã cài đặt Java OpenJDK 17 thành công!${NC}"
+elif pkg install -y openjdk-25; then
+    echo -e "${GREEN}✓ Đã cài đặt Java OpenJDK 25 thành công!${NC}"
+else
+    echo -e "${YELLOW}! Không tìm thấy gói OpenJDK trên mirror hiện tại. Bỏ qua Java.${NC}"
+fi
+
+echo -e "\n${CYAN}>> Cài đặt Termux API (tùy chọn)...${NC}"
+pkg install -y termux-api || true
 
 echo -e "\n${YELLOW}[2/6] Đang cài đặt Language Server (Python, TypeScript, Prettier)...${NC}"
 npm install -g pyright typescript-language-server prettier || true
