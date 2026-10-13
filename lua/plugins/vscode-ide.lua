@@ -51,6 +51,8 @@ return {
         width = 32,
         mappings = {
           ["<space>"] = "none",
+          ["t"] = "close_window",
+          ["<cr>"] = "open",
         },
       },
     },
