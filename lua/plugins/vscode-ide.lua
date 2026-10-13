@@ -12,7 +12,7 @@ return {
           return vim.o.columns * 0.4
         end
       end,
-      open_mapping = [[<c-\>]],
+      open_mapping = { [[<c-\>]], [[<c-`>]] },
       hide_numbers = true,
       shade_terminals = true,
       shading_factor = 2,

@@ -73,7 +73,7 @@ nvim --headless "+Lazy! sync" +qa
 | **Tìm Nhanh File** | **`Ctrl + P`** hoặc `<Space> <Space>` | Giống hệt Quick Open của VS Code |
 | **Tìm Chữ Trong Project** | **`<Space> s g>`** | Live Grep nội dung toàn bộ file code |
 | **Bật/Tắt Comment** | **`Ctrl + /`** | Hỗ trợ 1 dòng hoặc khối code đang chọn |
-| **Bật/Tắt Terminal** | **`Ctrl + \`** | Cửa sổ dòng lệnh bên dưới (nhấn `Esc Esc` để thoát) |
+| **Bật/Tắt Terminal** | **`Ctrl + \``** hoặc **``` ` ```** (hoặc `Ctrl + \`) | Cửa sổ dòng lệnh bên dưới (chuẩn VS Code) |
 | **Chuyển Tab File** | **`Tab`** / **`Shift + Tab`** | Chạm ngón tay trực tiếp vào Tab phía trên |
 | **Đóng Tab Hiện Tại** | **`Ctrl + W`** hoặc `<Space> b d` | Đóng buffer mà không mất layout cửa sổ |
 | **Kéo Dòng Lên/Xuống** | **`Alt + Up`** / **`Alt + Down`** | Kéo dòng hoặc vùng bôi đen như VS Code |

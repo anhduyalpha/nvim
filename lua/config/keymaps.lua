@@ -300,3 +300,19 @@ map("i", "jk", "<esc>", { desc = "Exit to Normal Mode (jk)" })
 map("v", "jk", "<esc>", { desc = "Exit to Normal Mode (jk)" })
 map("t", "jk", [[<C-\><C-n>]], { desc = "Exit Terminal Mode (jk)" })
 map("t", "jj", [[<C-\><C-n>]], { desc = "Exit Terminal Mode (jj)" })
+
+-- Toggle integrated terminal like VS Code (Ctrl+` / Ctrl+\ and ` in Normal mode)
+local function toggle_terminal()
+  local ok, toggleterm = pcall(require, "toggleterm")
+  if ok then
+    vim.cmd("ToggleTerm")
+  else
+    LazyVim.terminal()
+  end
+end
+
+map({ "n", "t", "i", "v" }, "<C-`>", toggle_terminal, { desc = "Toggle Terminal (Ctrl+`)" })
+map({ "n", "t", "i", "v" }, "<C-~>", toggle_terminal, { desc = "Toggle Terminal (Ctrl+~)" })
+map({ "n", "t", "i", "v" }, "<C-\\>", toggle_terminal, { desc = "Toggle Terminal (Ctrl+\\)" })
+-- Gán phím ` ở Normal mode để dù Android / Keychron chỉ nhận diện dấu ` thì vẫn mở/đóng Terminal thay vì mở marks
+map("n", "`", toggle_terminal, { desc = "Toggle Terminal (`)" })
