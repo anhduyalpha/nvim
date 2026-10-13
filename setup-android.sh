@@ -68,7 +68,7 @@ EOF
 
 echo -e "\n${YELLOW}[4/6] Đang tải JetBrainsMono Nerd Font (hiển thị icon IDE đẹp)...${NC}"
 FONT_ARCHIVE_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
-TMP_FONT_ARCHIVE="/tmp/JetBrainsMono.tar.xz"
+TMP_FONT_ARCHIVE="$HOME/.termux/JetBrainsMono.tar.xz"
 
 if curl -fL -o "$TMP_FONT_ARCHIVE" "$FONT_ARCHIVE_URL"; then
     tar -xf "$TMP_FONT_ARCHIVE" -C ~/.termux/ JetBrainsMonoNerdFont-Regular.ttf
