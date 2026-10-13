@@ -62,6 +62,7 @@ npm install -g pyright typescript-language-server prettier || true
 echo -e "\n${YELLOW}[3/6] Đang cấu hình phím cảm ứng chuyên dụng trên màn hình Tablet...${NC}"
 mkdir -p ~/.termux
 cat << 'EOF' > ~/.termux/termux.properties
+back-key = escape
 extra-keys = [ \
   ['ESC', 'CTRL', 'ALT', 'TAB', 'BACKSLASH', 'UP', 'DOWN'], \
   ['F5', 'F6', 'HOME', 'END', 'PGUP', 'PGDN', 'QUOTE'] \
