@@ -316,3 +316,74 @@ map({ "n", "t", "i", "v" }, "<C-~>", toggle_terminal, { desc = "Toggle Terminal 
 map({ "n", "t", "i", "v" }, "<C-\\>", toggle_terminal, { desc = "Toggle Terminal (Ctrl+\\)" })
 -- Gán phím ` ở Normal mode để dù Android / Keychron chỉ nhận diện dấu ` thì vẫn mở/đóng Terminal thay vì mở marks
 map("n", "`", toggle_terminal, { desc = "Toggle Terminal (`)" })
+
+-- ============================================================================
+-- 4. UNIVERSAL CLOSE / DISMISS VIA 'q' (Popups / Overlays / Sidebars / Tabs)
+-- ============================================================================
+local function smart_close()
+  -- 1. Nếu đang ghi Macro, nhấn q để dừng ghi
+  if vim.fn.reg_recording() ~= "" then
+    vim.cmd("normal! q")
+    return
+  end
+
+  local cur_win = vim.api.nvim_get_current_win()
+  local cur_buf = vim.api.nvim_get_current_buf()
+  local ft = vim.bo[cur_buf].filetype
+  local bt = vim.bo[cur_buf].buftype
+
+  -- 2. Đóng Floating Window hiện tại (LSP hover, Diagnostic, WhichKey, Popups)
+  local win_config = vim.api.nvim_win_get_config(cur_win)
+  if win_config.relative ~= "" then
+    pcall(vim.api.nvim_win_close, cur_win, true)
+    return
+  end
+
+  -- 3. Đóng các Floating Window khác nếu đang nổi trên màn hình
+  local closed_float = false
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    if win ~= cur_win and vim.api.nvim_win_is_valid(win) then
+      local cfg = vim.api.nvim_win_get_config(win)
+      if cfg.relative ~= "" and not cfg.external then
+        pcall(vim.api.nvim_win_close, win, true)
+        closed_float = true
+      end
+    end
+  end
+  if closed_float then
+    return
+  end
+
+  -- 4. Nếu đang trong Neo-tree, đóng Neo-tree
+  if ft == "neo-tree" then
+    vim.cmd("Neotree close")
+    return
+  end
+
+  -- 5. Nếu đang trong Terminal / ToggleTerm, đóng ToggleTerm
+  if ft == "toggleterm" or bt == "terminal" then
+    local ok, tt = pcall(require, "toggleterm")
+    if ok then
+      vim.cmd("ToggleTerm")
+    else
+      pcall(vim.api.nvim_win_close, cur_win, true)
+    end
+    return
+  end
+
+  -- 6. Nếu ở cửa sổ Quickfix, Trouble, Help, Man...
+  if bt == "quickfix" or ft == "qf" or ft == "trouble" or ft == "help" or ft == "man" then
+    pcall(vim.cmd, "close")
+    return
+  end
+
+  -- 7. Nếu ở file soạn thảo bình thường: Đóng Tab / Buffer hiện tại
+  if Snacks and Snacks.bufdelete then
+    Snacks.bufdelete()
+  else
+    pcall(vim.cmd, "bdelete")
+  end
+end
+
+map("n", "q", smart_close, { desc = "Universal Close (Popups / Overlays / Tabs)" })
+map("v", "q", "<esc>", { desc = "Exit Visual Mode (q)" })
