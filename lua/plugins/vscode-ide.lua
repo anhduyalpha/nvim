@@ -108,15 +108,11 @@ return {
     end,
   },
 
-  -- 5. Mason auto-install LSP & Formatters (PC Windows only; Termux uses pkg install)
+  -- 5. Mason & mason-lspconfig: Enabled on PC Windows; DISABLED on Android Termux
   {
     "mason-org/mason.nvim",
+    enabled = (vim.fn.isdirectory("/data/data/com.termux") ~= 1),
     opts = function(_, opts)
-      local is_termux = vim.fn.isdirectory("/data/data/com.termux") == 1 or vim.env.TERMUX_VERSION ~= nil
-      if is_termux then
-        opts.ensure_installed = {}
-        return
-      end
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         "clangd",
@@ -128,6 +124,22 @@ return {
         "stylua",
         "prettier",
       })
+    end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    enabled = (vim.fn.isdirectory("/data/data/com.termux") ~= 1),
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = function(_, opts)
+      local is_termux = vim.fn.isdirectory("/data/data/com.termux") == 1 or vim.env.TERMUX_VERSION ~= nil
+      if is_termux then
+        opts.servers = opts.servers or {}
+        -- Disable servers that crash on Termux (due to glibc vs bionic libc)
+        opts.servers.ruff = { enabled = false }
+        opts.servers.omnisharp = { enabled = false }
+      end
     end,
   },
 }

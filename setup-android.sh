@@ -102,6 +102,8 @@ else
 fi
 
 echo -e "\n${YELLOW}[6/6] Đang nạp và đồng bộ plugin Neovim (Headless Sync)...${NC}"
+# Xóa thư mục Mason cũ nếu có để tránh xung đột binary glibc trên Termux
+rm -rf ~/.local/share/nvim/mason ~/.local/share/nvim/mason-lspconfig || true
 nvim --headless "+Lazy! sync" +qa || true
 
 echo -e "\n${GREEN}================================================================${NC}"
