@@ -67,9 +67,14 @@ extra-keys = [ \
 EOF
 
 echo -e "\n${YELLOW}[4/6] Đang tải JetBrainsMono Nerd Font (hiển thị icon IDE đẹp)...${NC}"
-FONT_URL="https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Ligatures/Regular/JetBrainsMonoNerdFont-Regular.ttf"
-if curl -fsSL -o ~/.termux/font.ttf "$FONT_URL"; then
-    echo -e "${GREEN}✓ Đã tải font JetBrainsMono Nerd Font thành công!${NC}"
+FONT_ARCHIVE_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
+TMP_FONT_ARCHIVE="/tmp/JetBrainsMono.tar.xz"
+
+if curl -fL -o "$TMP_FONT_ARCHIVE" "$FONT_ARCHIVE_URL"; then
+    tar -xf "$TMP_FONT_ARCHIVE" -C ~/.termux/ JetBrainsMonoNerdFont-Regular.ttf
+    mv ~/.termux/JetBrainsMonoNerdFont-Regular.ttf ~/.termux/font.ttf
+    rm -f "$TMP_FONT_ARCHIVE"
+    echo -e "${GREEN}✓ Đã cài đặt JetBrainsMono Nerd Font thành công!${NC}"
 else
     echo -e "${YELLOW}! Không thể tải font qua mạng, Termux sẽ dùng font mặc định.${NC}"
 fi
