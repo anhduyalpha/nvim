@@ -35,7 +35,9 @@ pkg install -y \
     ripgrep \
     fd \
     curl \
-    termux-tools
+    termux-tools \
+    xz-utils \
+    unzip
 
 echo -e "\n${CYAN}>> Cài đặt Node.js...${NC}"
 pkg install -y nodejs-lts || pkg install -y nodejs || true
