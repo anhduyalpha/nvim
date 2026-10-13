@@ -67,7 +67,8 @@ nvim --headless "+Lazy! sync" +qa
 | **Run Project Đa File OOP** | **`F5`** hoặc `<Space> r` | Chạm vào nút **`[F5]`** trên thanh phím cảm ứng |
 | **Run Độc Lập 1 File** | **`F6`** hoặc `<Space> R` | Chạm vào nút **`[F6]`** trên thanh phím cảm ứng |
 | **Lưu File** | **`Ctrl + S`** | Hoạt động cả ở chế độ gõ lẫn Normal |
-| **Bật/Tắt Cây Thư Mục** | **`Ctrl + B`** hoặc `<Space> e` | Chạm ngón tay trực tiếp vào cây thư mục để mở file |
+| **Bật/Tắt Cây Thư Mục** | **`t`** hoặc `Ctrl + B` | Nhấn phím `t` hoặc chạm trực tiếp vào cây thư mục |
+| **Về Normal Mode nhanh** | **`jj`** hoặc **`jk`** | Gõ nhanh `jj` hoặc `jk` khi đang soạn thảo để thoát về Normal |
 | **Tìm Nhanh File** | **`Ctrl + P`** hoặc `<Space> <Space>` | Giống hệt Quick Open của VS Code |
 | **Tìm Chữ Trong Project** | **`<Space> s g>`** | Live Grep nội dung toàn bộ file code |
 | **Bật/Tắt Comment** | **`Ctrl + /`** | Hỗ trợ 1 dòng hoặc khối code đang chọn |

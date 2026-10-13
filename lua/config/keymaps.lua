@@ -279,3 +279,17 @@ map("n", "<S-Tab>", "<cmd>bprevious<cr>", { desc = "Previous Buffer Tab" })
 
 -- Escape in Terminal mode exits terminal insert mode to allow scrolling/navigation
 map("t", "<Esc><Esc>", [[<C-\><C-n>]], { desc = "Exit Terminal Mode" })
+
+-- ============================================================================
+-- 3. CUSTOM PERSONAL WORKFLOW SHORTCUTS
+-- ============================================================================
+
+-- 't' to toggle folder tree (Neo-tree) in Normal mode
+map("n", "t", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer Sidebar (t)" })
+
+-- 'jj' and 'jk' to quickly exit to Normal mode
+map("i", "jj", "<esc>", { desc = "Exit to Normal Mode (jj)" })
+map("i", "jk", "<esc>", { desc = "Exit to Normal Mode (jk)" })
+map("v", "jk", "<esc>", { desc = "Exit to Normal Mode (jk)" })
+map("t", "jk", [[<C-\><C-n>]], { desc = "Exit Terminal Mode (jk)" })
+map("t", "jj", [[<C-\><C-n>]], { desc = "Exit Terminal Mode (jj)" })
